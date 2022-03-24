@@ -72,6 +72,7 @@ export default function Dashboard() {
 
       <Flex w='100%' my='6' maxW={1480} mx='auto' px='6'>
         <SideBar />
+        
         <SimpleGrid
           flex='1'
           gap='4'

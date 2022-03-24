@@ -13,6 +13,7 @@ const signInFormSchema = yup.object().shape({
   email: yup.string().required('E-Mail is required').email('Invalid E-Mail'),
   password: yup.string().required('Password is required')
 })
+
 export default function SignIn() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormSchema)
@@ -48,10 +49,10 @@ export default function SignIn() {
       >
         <Stack spacing={4}>
           <Input
-            error={errors.email}
             type='email'
             name='email'
             label='E-Mail'
+            error={errors.email}
             {...register('email')}
           />
           
