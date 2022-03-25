@@ -16,7 +16,7 @@ export function PaginationItem({
     return (
       <Button
       size='sm'
-      fontSize='xl'
+      fontSize='md'
       w='4'
       colorScheme='pink'
       disabled
@@ -25,7 +25,7 @@ export function PaginationItem({
         cursor: 'default'
       }}
       >
-        { number }
+        {number}
       </Button>
     )
   }
@@ -33,14 +33,14 @@ export function PaginationItem({
   return (
     <Button
         size='sm'
-        fontSize='xl'
+        fontSize='md'
         w='4'
         bg='gray.700'
         _hover={{
           bg: 'gray.500'
         }}
      >
-        { number }
+        {number}
       </Button>
   )
 

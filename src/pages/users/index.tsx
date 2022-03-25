@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { RiAddLine } from 'react-icons/ri';
 import { Header } from '../../components/Header';
-import Pagination from '../../components/Pagination';
+import { Pagination } from '../../components/Pagination';
 import { SideBar } from '../../components/Sidebar';
 import { useUsers } from '../../services/hooks/users/useUsers';
 
@@ -103,7 +103,11 @@ export default function UserList() {
   
             </Table>
             
-                  <Pagination />
+                  <Pagination
+                    totalCountOfRegisters={200}
+                    currentPage={5}
+                    onPageChange={() => {}}
+                  />
                 </>
                   
           )}
