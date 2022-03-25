@@ -2,19 +2,14 @@ import { Box, Button, Checkbox, Flex, Heading, Icon, Spinner, Table, Tbody, Td, 
 import Link from 'next/link';
 import React from 'react';
 import { RiAddLine } from 'react-icons/ri';
-import { useQuery } from 'react-query';
 import { Header } from '../../components/Header';
 import Pagination from '../../components/Pagination';
 import { SideBar } from '../../components/Sidebar';
+import { useUsers } from '../../services/hooks/users/useUsers';
 
 export default function UserList() {
   
-  const { data, isLoading, error } = useQuery('users', async () => {
-    const response = await fetch('http://localhost:3000/api/users')
-    const data = response.json();
-
-    return data
-  })
+  const { data, isLoading, isFetching , error } = useUsers()
   
   
   const isWideVersion = useBreakpointValue({
@@ -47,7 +42,11 @@ export default function UserList() {
               size='lg'
               fontWeight='normal'
             >
-              Users
+              Users 
+              {
+                !isLoading && isFetching &&
+                <Spinner size='sm' color="gray.500" ml='4'/>
+              }
             </Heading>
             
             <Link href='/users/create' passHref>
@@ -86,79 +85,20 @@ export default function UserList() {
               </Thead>
   
               <Tbody>
-                <Tr>
-                  <Td px={['4','4','6']}>
-                    <Checkbox colorScheme='pink'/>
-                  </Td>
-                  <Td>
-                    <Box >
-                      <Text fontWeight='bold'>Joao Gomes</Text>
-                      <Text fontSize='sm' color='gray.300'>joaopfg.2002@gmail.com</Text>
-                    </Box>
-                  </Td>
-                  {isWideVersion && <Td>01 de Abril de 2022</Td> }
-                  {/* <Td>
-                  <Button
-                    as="a"
-                    size='sm'
-                    fontSize='sm'
-                    colorScheme='purple'
-                    leftIcon={<Icon fontSize='16' as={RiPencilLine}/>}
-                  >{
-                    isWideVersion && 'Edit'
-                  }
-                  </Button>
-                  </Td> */}
-                </Tr>
-                <Tr>
-                  <Td px={['4','4','6']}>
-                    <Checkbox colorScheme='pink'/>
-                  </Td>
-                  <Td>
-                    <Box >
-                      <Text fontWeight='bold'>Joao Gomes</Text>
-                      <Text fontSize='sm' color='gray.300'>joaopfg.2002@gmail.com</Text>
-                    </Box>
-                  </Td>
-                  {isWideVersion && <Td>01 de Abril de 2022</Td> }
-                  {/* <Td>
-                  <Button
-                    as="a"
-                    size='sm'
-                    fontSize='sm'
-                    colorScheme='purple'
-                    leftIcon={<Icon fontSize='16' as={RiPencilLine}/>}
-                    >
-                      {
-                    isWideVersion && 'Edit'
-                     }
-                  </Button>
-                  </Td> */}
-                </Tr>
-                <Tr>
-                  <Td px={['4','4','6']}>
-                    <Checkbox colorScheme='pink'/>
-                  </Td>
-                  <Td>
-                    <Box >
-                      <Text fontWeight='bold'>Joao Gomes</Text>
-                      <Text fontSize='sm' color='gray.300'>joaopfg.2002@gmail.com</Text>
-                    </Box>
-                  </Td>
-                  {isWideVersion && <Td>01 de Abril de 2022</Td> }
-                  {/* <Td>
-                  <Button
-                    as="a"
-                    size='sm'
-                    fontSize='sm'
-                    colorScheme='purple'
-                    leftIcon={<Icon fontSize='16' as={RiPencilLine}/>}
-                  >{
-                    isWideVersion && 'Edit'
-                  }
-                  </Button>
-                  </Td> */}
-                </Tr>
+                  {data.map(user => (
+                    <Tr key={user.username} >
+                      <Td px={['4','4','6']}>
+                        <Checkbox colorScheme='pink'/>
+                      </Td>
+                      <Td>
+                        <Box >
+                          <Text fontWeight='bold'>{user.name}</Text>
+                          <Text fontSize='sm' color='gray.300'>{user.email}</Text>
+                        </Box>
+                      </Td>
+                      {isWideVersion && <Td>{ user.createdAt}</Td> }
+                  </Tr>
+                  ))}
               </Tbody>
   
             </Table>
