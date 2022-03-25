@@ -86,7 +86,7 @@ export default function UserList() {
   
               <Tbody>
                   {data.map(user => (
-                    <Tr key={user.username} >
+                    <Tr key={user.name} >
                       <Td px={['4','4','6']}>
                         <Checkbox colorScheme='pink'/>
                       </Td>
